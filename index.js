@@ -44,6 +44,7 @@ module.exports = {
           done(new Error(self.exports.url + " returned http code " + resp.statusCode));
         }
       });
+      resp.resume();
     });
     req.on('error', function(err) {
       done(new Error("unable to POST " + self.exports.url + ": " + err.stack));

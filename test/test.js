@@ -45,12 +45,14 @@ describe("callback", function() {
   it("fails when callback url cannot be reached", function(done) {
     var task = Plan.createTask(definition);
     var plan = new Plan();
+    var hadError = false;
     plan.addTask(task);
     plan.on('error', function(err) {
-      done();
+      hadError = true;
     });
     plan.on('end', function() {
-      done(new Error("plan execution should be an error"));
+      assert.ok(hadError);
+      done();
     });
     plan.start();
   });
@@ -65,14 +67,14 @@ describe("callback", function() {
       var url = "http://localhost:" + port + "/blah/foo"
       var task = Plan.createTask(definition);
       var plan = new Plan();
+      var hadError = false;
       plan.addTask(task);
       plan.on('error', function(err) {
-        server.close();
-        done();
+        hadError = true;
       });
       plan.on('end', function() {
-        server.close();
-        done(new Error("plan execution should be an error"));
+        assert.ok(hadError);
+        server.close(done);
       });
       plan.start({
         callbackUrl: url,
