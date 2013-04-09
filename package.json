@@ -1,6 +1,6 @@
 {
   "name": "plan-callback",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "plan plugin for posting to a url",
   "main": "index.js",
   "scripts": {
